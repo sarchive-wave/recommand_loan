@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IBK저축은행 대출 추천기</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css" />
+  <style>
+    body { font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f5f7fa; }
+    .chip { cursor: pointer; transition: all 0.15s; user-select: none; }
+    .chip.active { background: #1D4ED8; color: #fff; border-color: #1D4ED8; }
+    .chip:not(.active):hover { background: #EFF6FF; border-color: #93C5FD; }
+    .product-card { transition: box-shadow 0.15s; }
+    .product-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
+    input[type=number]::-webkit-inner-spin-button { opacity: 1; }
+    select { appearance: auto; }
+    .badge-best { background: #1D4ED8; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+    .tag { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: #EFF6FF; color: #1D4ED8; font-weight: 500; }
+    .tag.green { background: #F0FDF4; color: #15803D; }
+    .tag.amber { background: #FFFBEB; color: #B45309; }
+    @media (max-width: 600px) {
+      .grid-2 { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen py-8 px-4">
+
+  <div style="max-width: 720px; margin: 0 auto;">
+
+    <!-- 헤더 -->
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-1">
+        <img src="https://www.ibksb.co.kr/img/logo.png" alt="IBK저축은행" style="height:28px;" onerror="this.style.display='none'">
+        <h1 style="font-size:22px; font-weight:700; color:#1e293b;">대출 상품 추천기</h1>
+      </div>
+      <p style="font-size:14px; color:#64748b;">조건을 선택하면 IBK저축은행 맞춤 상품을 추천해 드려요</p>
+    </div>
+
+    <!-- 입력 폼 -->
+    <div style="background:#fff; border-radius:16px; border:1px solid #e2e8f0; padding:1.5rem; margin-bottom:1.5rem;">
+
+      <!-- 직업 유형 -->
+      <div class="mb-5">
+        <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:8px;">
+          <i class="ti ti-briefcase" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>직업 유형
+        </label>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;" id="job-group">
+          <span class="chip active" data-val="직장인" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">직장인</span>
+          <span class="chip" data-val="자영업자" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">자영업자 / 소상공인</span>
+          <span class="chip" data-val="의료사업자" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">의료사업자</span>
+          <span class="chip" data-val="법인" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">법인사업자</span>
+        </div>
+      </div>
+
+      <!-- 신용 등급 -->
+      <div class="mb-5">
+        <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:8px;">
+          <i class="ti ti-star" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>신용 등급
+        </label>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;" id="credit-group">
+          <span class="chip" data-val="고신용" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">고신용 (1~3등급)</span>
+          <span class="chip active" data-val="중신용" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">중신용 (4~6등급)</span>
+          <span class="chip" data-val="저신용" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">저신용 (7등급 이하)</span>
+        </div>
+      </div>
+
+      <!-- 대출 목적 -->
+      <div class="mb-5">
+        <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:8px;">
+          <i class="ti ti-target" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>대출 목적
+        </label>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;" id="purpose-group">
+          <span class="chip active" data-val="생활자금" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">생활자금</span>
+          <span class="chip" data-val="사업자금" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">사업자금</span>
+          <span class="chip" data-val="부동산" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">부동산 / 담보</span>
+          <span class="chip" data-val="경매" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">경락잔금</span>
+        </div>
+      </div>
+
+      <!-- 금액 + 담보 -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;" class="grid-2">
+        <div>
+          <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:6px;">
+            <i class="ti ti-cash" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>필요 금액 (만원)
+          </label>
+          <input type="number" id="amount" value="1000" min="100" max="100000" step="100"
+            style="width:100%; padding:8px 12px; border:1px solid #CBD5E1; border-radius:8px; font-size:14px; color:#1e293b; outline:none;"
+            onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#CBD5E1'" />
+        </div>
+        <div>
+          <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:6px;">
+            <i class="ti ti-building-bank" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>담보 여부
+          </label>
+          <select id="collateral"
+            style="width:100%; padding:8px 12px; border:1px solid #CBD5E1; border-radius:8px; font-size:14px; color:#1e293b; background:#fff; outline:none;">
+            <option value="없음">없음 (신용 / 보증)</option>
+            <option value="부동산">부동산 담보 있음</option>
+            <option value="예적금">예·적금 담보 있음</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 지역 -->
+      <div class="mb-5">
+        <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:8px;">
+          <i class="ti ti-map-pin" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>거주 / 사업 지역
+        </label>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;" id="region-group">
+          <span class="chip active" data-val="전국" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">전국</span>
+          <span class="chip" data-val="부산경남" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">부산 / 울산 / 경남</span>
+        </div>
+      </div>
+
+      <!-- 추천 버튼 -->
+      <button onclick="recommend()"
+        style="width:100%; padding:13px; background:#1D4ED8; color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; letter-spacing:0.3px;"
+        onmouseover="this.style.background='#1E40AF'" onmouseout="this.style.background='#1D4ED8'">
+        대출 상품 추천받기
+      </button>
+    </div>
+
+    <!-- 결과 영역 -->
+    <div id="results"></div>
+
+  </div>
+
+  <script>
+    const PRODUCTS = [
+      {
+        name: "사잇돌2",
+        desc: "중·저신용 거래자 대상 정부지원 보증부 대출",
+        rate: "연 9%대 ~ 14%대",
+        limit: "최대 3,000만 원",
+        url: "https://sbloan.ibksb.co.kr/ibk/loan/loan_02_02.jsp",
+        jobs: ["직장인"],
+        credits: ["중신용", "저신용"],
+        purposes: ["생활자금"],
+        collaterals: ["없음"],
+        regions: ["전국"],
+        maxAmount: 3000,
+        tags: ["정부지원", "보증부"],
+      },
+      {
+        name: "햇살론 일반보증",
+        desc: "저신용·저소득 직장인을 위한 정책서민금융 상품",
+        rate: "연 6%대 ~ 7%대",
+        limit: "최대 1,500만 원",
+        url: "https://sbloan.ibksb.co.kr/ibk/loan/loan_01_02.jsp",
+        jobs: ["직장인"],
+        credits: ["저신용"],
+        purposes: ["생활자금"],
+        collaterals: ["없음"],
+        regions: ["전국"],
+        maxAmount: 1500,
+        tags: ["정책금융", "저금리"],
+      },
+      {
+        name: "햇살론 특례보증",
+        desc: "저신용자를 위한 정책서민금융 상품",
+        rate: "연 9.90% ~ 12.50%",
+        limit: "최대 1,000만 원",
+        url: "https://sbloan.ibksb.co.kr/ibk/loan/loan_01_03.jsp",
+        jobs: ["직장인", "자영업자"],
+        credits: ["저신용"],
+        purposes: ["생활자금", "사업자금"],
+        collaterals: ["없음"],
+        regions: ["전국"],
+        maxAmount: 1000,
+        tags: ["정책금융", "특례"],
+      },
+      {
+        name: "사업자햇살론",
+        desc: "사업자를 위한 정부 지원 대출",
+        rate: "연 8%대",
+        limit: "최대 5,000만 원",
+        url: "https://sbloan.ibksb.co.kr/ibk/loan/loan_02_05.jsp?goods_cd=760051",
+        jobs: ["자영업자"],
+        credits: ["중신용", "저신용"],
+        purposes: ["사업자금"],
+        collaterals: ["없음"],
+        regions: ["전국"],
+        maxAmount: 5000,
+        tags: ["정부지원", "사업자"],
+      },
+      {
+        name: "BIG3 등대론",
+        desc: "부산시 소재 중·소기업 대상 보증부 대출",
+        rate: "연 5.50% ~ 7.50%",
+        limit: "최대 3,000만 원",
+        url: "https://sbloan.ibksb.co.kr/ibk/loan/loan_02_03.jsp",
+        jobs: ["자영업자", "법인"],
+        credits: ["고신용", "중신용"],
+        purposes: ["사업자금"],
+        collaterals: ["없음"],
+        regions: ["부산경남"],
+        maxAmount: 3000,
+        tags: ["지역특화", "저금리"],
+      },
+      {
+        name: "i-빅론U",
+        desc: "직장인을 위한 IBK저축은행 신용대출",
+        rate: "연 7.90% ~ 19.99%",
+        limit: "최대 6,000만 원",
+        url: "https://sbloan.ibksb.co.kr/ibk/loan/loan_03_07.jsp",
+        jobs: ["직장인"],
+        credits: ["고신용", "중신용"],
+        purposes: ["생활자금"],
+        collaterals: ["없음"],
+        regions: ["전국"],
+        maxAmount: 6000,
+        tags: ["신용대출", "직장인"],
+      },
+      {
+        name: "i-빅론S",
+        desc: "기거래 우수고객을 위한 추가 신용대출",
+        rate: "연 7.90% ~ 19.99%",
+        limit: "최대 4,000만 원",
+        url: "https://sbloan.ibksb.co.kr/ibk/loan/loan_03_09.jsp",
+        jobs: ["직장인"],
+        credits: ["고신용", "중신용"],
+        purposes: ["생활자금"],
+        collaterals: ["없음"],
+        regions: ["전국"],
+        maxAmount: 4000,
+        tags: ["기존고객 우대"],
+      },
+      {
+        name: "지역사랑 더드림론",
+        desc: "부산·울산·경남 우량 직장인을 위한 신용대출",
+        rate: "연 7.90% ~ 19.99%",
+        limit: "최대 7,000만 원",
+        url: "https://sbloan.ibksb.co.kr/ibk/loan/loan_03_11.jsp",
+        jobs: ["직장인"],
+        credits: ["고신용", "중신용"],
+        purposes: ["생활자금"],
+        collaterals: ["없음"],
+        regions: ["부산경남"],
+        maxAmount: 7000,
+        tags: ["지역특화", "직장인"],
+      },
+      {
+        name: "경락잔금대출",
+        desc: "법원 경매 낙찰자를 위한 경락자금 지원 대출",
+        rate: "연 6.78% ~ 10.00%",
+        limit: "개인 최대 8억 / 법인 최대 120억",
+        url: "https://sbloan.ibksb.co.kr/ibk/loan/loan_04_05.jsp",
+        jobs: ["직장인", "자영업자", "법인"],
+        credits: ["고신용", "중신용"],
+        purposes: ["경매"],
+        collaterals: ["부동산"],
+        regions: ["전국"],
+        maxAmount: 80000,
+        tags: ["담보대출", "경락"],
+      },
+      {
+        name: "부동산 담보대출",
+        desc: "보유 부동산을 담보로 필요자금 대출",
+        rate: "연 6.78% ~ 19.99%",
+        limit: "개인 최대 8억 / 법인 최대 120억",
+        url: "https://sbloan.ibksb.co.kr/ibk/loan/loan_04_06.jsp",
+        jobs: ["직장인", "자영업자", "법인"],
+        credits: ["고신용", "중신용", "저신용"],
+        purposes: ["생활자금", "사업자금", "부동산"],
+        collaterals: ["부동산"],
+        regions: ["전국"],
+        maxAmount: 80000,
+        tags: ["담보대출"],
+      },
+      {
+        name: "예적금 담보대출",
+        desc: "본인 명의 예·적금을 담보로 즉시 대출",
+        rate: "해당 예적금금리 + 연 1.5%",
+        limit: "납입금의 95% 이내",
+        url: "https://sbloan.ibksb.co.kr/ibk/loan/loan_05_05.jsp",
+        jobs: ["직장인", "자영업자"],
+        credits: ["고신용", "중신용", "저신용"],
+        purposes: ["생활자금"],
+        collaterals: ["예적금"],
+        regions: ["전국"],
+        maxAmount: 99999,
+        tags: ["최저금리", "담보대출"],
+      },
+      {
+        name: "사업자 아파트담보대출",
+        desc: "개인 사업자를 위한 아파트 담보대출",
+        rate: "연 5.80% ~ 9.50%",
+        limit: "최대 10억 원",
+        url: "https://sbloan.ibksb.co.kr/ibk/loan/loan_04_04.jsp",
+        jobs: ["자영업자"],
+        credits: ["고신용", "중신용"],
+        purposes: ["부동산", "사업자금"],
+        collaterals: ["부동산"],
+        regions: ["전국"],
+        maxAmount: 100000,
+        tags: ["사업자", "아파트담보"],
+      },
+      {
+        name: "소상공인 신용대출",
+        desc: "소상공인을 위한 신용대출",
+        rate: "연 7.51% ~ 15.88%",
+        limit: "최대 1억 원",
+        url: "https://sbloan.ibksb.co.kr/ibk/loan/loan_06_01.jsp",
+        jobs: ["자영업자"],
+        credits: ["고신용", "중신용"],
+        purposes: ["사업자금"],
+        collaterals: ["없음"],
+        regions: ["전국"],
+        maxAmount: 10000,
+        tags: ["소상공인"],
+      },
+      {
+        name: "소상공인 부동산담보대출",
+        desc: "소상공인을 위한 부동산 담보대출",
+        rate: "연 6.78% ~ 15.25%",
+        limit: "최대 60억 원",
+        url: "https://sbloan.ibksb.co.kr/ibk/loan/loan_04_07.jsp",
+        jobs: ["자영업자"],
+        credits: ["고신용", "중신용"],
+        purposes: ["사업자금", "부동산"],
+        collaterals: ["부동산"],
+        regions: ["전국"],
+        maxAmount: 600000,
+        tags: ["소상공인", "담보대출"],
+      },
+      {
+        name: "의료사업자 담보대출",
+        desc: "의원·병원·약국·요양원 등 의료사업자 담보대출",
+        rate: "연 6.78% ~ 12.80%",
+        limit: "개인사업자 최대 60억 / 법인 최대 120억",
+        url: "https://sbloan.ibksb.co.kr/i
