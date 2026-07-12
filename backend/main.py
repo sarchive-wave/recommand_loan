@@ -55,9 +55,9 @@ def list_products():
 
 @app.get("/api/recommend")
 def recommend(
-    job: str = Query(..., description="직업 유형: 직장인 / 자영업자 / 의료사업자 / 법인"),
-    credit: str = Query(..., description="신용 등급: 고신용 / 중신용 / 저신용"),
-    purpose: str = Query(..., description="대출 목적: 생활자금 / 사업자금 / 부동산 / 경매"),
+    job: str = Query(..., description="직업 유형: 전체 / 직장인 / 자영업자 / 의료사업자 / 법인"),
+    credit: str = Query(..., description="신용 등급: 전체 / 고신용 / 중신용 / 저신용"),
+    purpose: str = Query(..., description="대출 목적: 전체 / 생활자금 / 사업자금 / 부동산 / 경매"),
     amount: int = Query(..., ge=1, description="필요 금액(만원)"),
     collateral: str = Query("없음", description="담보 여부: 없음 / 부동산 / 예적금"),
     region: str = Query("전국", description="거주/사업 지역: 전국 / 부산경남"),
@@ -72,11 +72,11 @@ def recommend(
     for p in products:
         if not p["available"]:
             continue
-        if job not in p["jobs"]:
+        if job != "전체" and job not in p["jobs"]:
             continue
-        if credit not in p["credits"]:
+        if credit != "전체" and credit not in p["credits"]:
             continue
-        if purpose not in p["purposes"]:
+        if purpose != "전체" and purpose not in p["purposes"]:
             continue
         if collateral not in p["collaterals"]:
             continue

@@ -8,9 +8,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css" />
   <style>
     body { font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f5f7fa; }
-    .chip { cursor: pointer; transition: all 0.15s; user-select: none; }
+    .chip { cursor: pointer; transition: all 0.15s; user-select: none; color: #334155; }
     .chip.active { background: #1D4ED8; color: #fff; border-color: #1D4ED8; }
     .chip:not(.active):hover { background: #EFF6FF; border-color: #93C5FD; }
+    .tab-btn { cursor: pointer; transition: all 0.15s; user-select: none; color: #475569; }
+    .tab-btn.active { background: #1D4ED8; color: #fff; border-color: #1D4ED8; }
+    .tab-btn:not(.active):hover { background: #EFF6FF; border-color: #93C5FD; }
     .product-card { transition: box-shadow 0.15s; }
     .product-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
     input[type=number]::-webkit-inner-spin-button { opacity: 1; }
@@ -37,91 +40,109 @@
       <p style="font-size:14px; color:#64748b;">조건을 선택하면 IBK저축은행 맞춤 상품을 추천해 드려요</p>
     </div>
 
-    <!-- 입력 폼 -->
-    <div style="background:#fff; border-radius:16px; border:1px solid #e2e8f0; padding:1.5rem; margin-bottom:1.5rem;">
-
-      <!-- 직업 유형 -->
-      <div class="mb-5">
-        <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:8px;">
-          <i class="ti ti-briefcase" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>직업 유형
-        </label>
-        <div style="display:flex; flex-wrap:wrap; gap:8px;" id="job-group">
-          <span class="chip active" data-val="직장인" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">직장인</span>
-          <span class="chip" data-val="자영업자" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">자영업자 / 소상공인</span>
-          <span class="chip" data-val="의료사업자" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">의료사업자</span>
-          <span class="chip" data-val="법인" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">법인사업자</span>
-        </div>
-      </div>
-
-      <!-- 신용 등급 -->
-      <div class="mb-5">
-        <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:8px;">
-          <i class="ti ti-star" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>신용 등급
-        </label>
-        <div style="display:flex; flex-wrap:wrap; gap:8px;" id="credit-group">
-          <span class="chip" data-val="고신용" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">고신용 (1~3등급)</span>
-          <span class="chip active" data-val="중신용" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">중신용 (4~6등급)</span>
-          <span class="chip" data-val="저신용" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">저신용 (7등급 이하)</span>
-        </div>
-      </div>
-
-      <!-- 대출 목적 -->
-      <div class="mb-5">
-        <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:8px;">
-          <i class="ti ti-target" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>대출 목적
-        </label>
-        <div style="display:flex; flex-wrap:wrap; gap:8px;" id="purpose-group">
-          <span class="chip active" data-val="생활자금" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">생활자금</span>
-          <span class="chip" data-val="사업자금" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">사업자금</span>
-          <span class="chip" data-val="부동산" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">부동산 / 담보</span>
-          <span class="chip" data-val="경매" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">경락잔금</span>
-        </div>
-      </div>
-
-      <!-- 금액 + 담보 -->
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;" class="grid-2">
-        <div>
-          <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:6px;">
-            <i class="ti ti-cash" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>필요 금액 (만원)
-          </label>
-          <input type="number" id="amount" value="1000" min="100" max="100000" step="100"
-            style="width:100%; padding:8px 12px; border:1px solid #CBD5E1; border-radius:8px; font-size:14px; color:#1e293b; outline:none;"
-            onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#CBD5E1'" />
-        </div>
-        <div>
-          <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:6px;">
-            <i class="ti ti-building-bank" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>담보 여부
-          </label>
-          <select id="collateral"
-            style="width:100%; padding:8px 12px; border:1px solid #CBD5E1; border-radius:8px; font-size:14px; color:#1e293b; background:#fff; outline:none;">
-            <option value="없음">없음 (신용 / 보증)</option>
-            <option value="부동산">부동산 담보 있음</option>
-            <option value="예적금">예·적금 담보 있음</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- 지역 -->
-      <div class="mb-5">
-        <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:8px;">
-          <i class="ti ti-map-pin" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>거주 / 사업 지역
-        </label>
-        <div style="display:flex; flex-wrap:wrap; gap:8px;" id="region-group">
-          <span class="chip active" data-val="전국" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">전국</span>
-          <span class="chip" data-val="부산경남" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px; color:#334155;">부산 / 울산 / 경남</span>
-        </div>
-      </div>
-
-      <!-- 추천 버튼 -->
-      <button onclick="recommend()"
-        style="width:100%; padding:13px; background:#1D4ED8; color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; letter-spacing:0.3px;"
-        onmouseover="this.style.background='#1E40AF'" onmouseout="this.style.background='#1D4ED8'">
-        대출 상품 추천받기
-      </button>
+    <!-- 메뉴 탭 -->
+    <div style="display:flex; gap:8px; margin-bottom:1.5rem;" id="view-tabs">
+      <span class="tab-btn active" data-view="recommend" style="flex:1; text-align:center; padding:10px 14px; border-radius:10px; border:1px solid #CBD5E1; font-size:14px; font-weight:600;">맞춤 추천</span>
+      <span class="tab-btn" data-view="catalog" style="flex:1; text-align:center; padding:10px 14px; border-radius:10px; border:1px solid #CBD5E1; font-size:14px; font-weight:600;">전체 상품 보기</span>
     </div>
 
-    <!-- 결과 영역 -->
-    <div id="results"></div>
+    <!-- 맞춤 추천 화면 -->
+    <div id="recommend-view">
+
+      <!-- 입력 폼 -->
+      <div style="background:#fff; border-radius:16px; border:1px solid #e2e8f0; padding:1.5rem; margin-bottom:1.5rem;">
+
+        <!-- 직업 유형 -->
+        <div class="mb-5">
+          <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:8px;">
+            <i class="ti ti-briefcase" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>직업 유형
+          </label>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;" id="job-group">
+            <span class="chip" data-val="전체" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">전체</span>
+            <span class="chip active" data-val="직장인" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">직장인</span>
+            <span class="chip" data-val="자영업자" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">자영업자 / 소상공인</span>
+            <span class="chip" data-val="의료사업자" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">의료사업자</span>
+            <span class="chip" data-val="법인" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">법인사업자</span>
+          </div>
+        </div>
+
+        <!-- 신용 등급 -->
+        <div class="mb-5">
+          <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:8px;">
+            <i class="ti ti-star" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>신용 등급
+          </label>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;" id="credit-group">
+            <span class="chip" data-val="전체" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">전체</span>
+            <span class="chip" data-val="고신용" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">고신용 (1~3등급)</span>
+            <span class="chip active" data-val="중신용" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">중신용 (4~6등급)</span>
+            <span class="chip" data-val="저신용" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">저신용 (7등급 이하)</span>
+          </div>
+        </div>
+
+        <!-- 대출 목적 -->
+        <div class="mb-5">
+          <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:8px;">
+            <i class="ti ti-target" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>대출 목적
+          </label>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;" id="purpose-group">
+            <span class="chip" data-val="전체" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">전체</span>
+            <span class="chip active" data-val="생활자금" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">생활자금</span>
+            <span class="chip" data-val="사업자금" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">사업자금</span>
+            <span class="chip" data-val="부동산" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">부동산 / 담보</span>
+            <span class="chip" data-val="경매" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">경락잔금</span>
+          </div>
+        </div>
+
+        <!-- 금액 + 담보 -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;" class="grid-2">
+          <div>
+            <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:6px;">
+              <i class="ti ti-cash" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>필요 금액 (만원)
+            </label>
+            <input type="number" id="amount" value="1000" min="100" max="100000" step="100"
+              style="width:100%; padding:8px 12px; border:1px solid #CBD5E1; border-radius:8px; font-size:14px; color:#1e293b; outline:none;"
+              onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#CBD5E1'" />
+          </div>
+          <div>
+            <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:6px;">
+              <i class="ti ti-building-bank" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>담보 여부
+            </label>
+            <select id="collateral"
+              style="width:100%; padding:8px 12px; border:1px solid #CBD5E1; border-radius:8px; font-size:14px; color:#1e293b; background:#fff; outline:none;">
+              <option value="없음">없음 (신용 / 보증)</option>
+              <option value="부동산">부동산 담보 있음</option>
+              <option value="예적금">예·적금 담보 있음</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 지역 -->
+        <div class="mb-5">
+          <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:8px;">
+            <i class="ti ti-map-pin" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>거주 / 사업 지역
+          </label>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;" id="region-group">
+            <span class="chip active" data-val="전국" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">전국</span>
+            <span class="chip" data-val="부산경남" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">부산 / 울산 / 경남</span>
+          </div>
+        </div>
+
+        <!-- 추천 버튼 -->
+        <button onclick="recommend()"
+          style="width:100%; padding:13px; background:#1D4ED8; color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; letter-spacing:0.3px;"
+          onmouseover="this.style.background='#1E40AF'" onmouseout="this.style.background='#1D4ED8'">
+          대출 상품 추천받기
+        </button>
+      </div>
+
+      <!-- 결과 영역 -->
+      <div id="results"></div>
+    </div>
+
+    <!-- 전체 상품 보기 화면 -->
+    <div id="catalog-view" style="display:none;">
+      <div id="catalog-results"></div>
+    </div>
 
   </div>
 
@@ -147,19 +168,8 @@
       return div.innerHTML;
     }
 
-    function renderResults(data) {
-      const el = document.getElementById('results');
-
-      if (data.count === 0) {
-        el.innerHTML = `
-          <div style="background:#fff; border-radius:16px; border:1px solid #e2e8f0; padding:2rem; text-align:center; color:#64748b; font-size:14px;">
-            <i class="ti ti-mood-empty" style="font-size:28px; display:block; margin-bottom:8px; color:#94a3b8;"></i>
-            조건에 맞는 상품이 없어요. 조건을 조정해 다시 시도해 보세요.
-          </div>`;
-        return;
-      }
-
-      const cards = data.results.map(p => `
+    function renderProductCard(p) {
+      return `
         <div class="product-card" style="background:#fff; border-radius:14px; border:1px solid #e2e8f0; padding:1.25rem; margin-bottom:12px;">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
             <div style="display:flex; align-items:center; gap:6px;">
@@ -180,7 +190,22 @@
             ${p.tags.map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}
           </div>
         </div>
-      `).join('');
+      `;
+    }
+
+    function renderResults(data) {
+      const el = document.getElementById('results');
+
+      if (data.count === 0) {
+        el.innerHTML = `
+          <div style="background:#fff; border-radius:16px; border:1px solid #e2e8f0; padding:2rem; text-align:center; color:#64748b; font-size:14px;">
+            <i class="ti ti-mood-empty" style="font-size:28px; display:block; margin-bottom:8px; color:#94a3b8;"></i>
+            조건에 맞는 상품이 없어요. 조건을 조정해 다시 시도해 보세요.
+          </div>`;
+        return;
+      }
+
+      const cards = data.results.map(renderProductCard).join('');
 
       el.innerHTML = `
         <div style="font-size:13px; color:#64748b; margin-bottom:10px; padding-left:2px;">
@@ -216,6 +241,48 @@
         console.error(err);
       }
     }
+
+    let catalogLoaded = false;
+
+    async function loadCatalog() {
+      const el = document.getElementById('catalog-results');
+      el.innerHTML = `<div style="text-align:center; padding:2rem; color:#94a3b8; font-size:14px;">전체 상품을 불러오는 중...</div>`;
+
+      try {
+        const res = await fetch('/api/products');
+        if (!res.ok) throw new Error(`API error: ${res.status}`);
+        const products = (await res.json()).filter(p => p.available);
+        const cards = products.map(renderProductCard).join('');
+        el.innerHTML = `
+          <div style="font-size:13px; color:#64748b; margin-bottom:10px; padding-left:2px;">
+            현재 판매 중인 상품 <strong style="color:#1e293b;">${products.length}개</strong>
+          </div>
+          ${cards}
+        `;
+        catalogLoaded = true;
+      } catch (err) {
+        el.innerHTML = `
+          <div style="background:#fff; border-radius:16px; border:1px solid #FCA5A5; padding:1.5rem; text-align:center; color:#B91C1C; font-size:14px;">
+            상품 목록을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.
+          </div>`;
+        console.error(err);
+      }
+    }
+
+    document.getElementById('view-tabs').addEventListener('click', (e) => {
+      const tab = e.target.closest('.tab-btn');
+      if (!tab) return;
+      document.querySelectorAll('#view-tabs .tab-btn').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const view = tab.dataset.view;
+      document.getElementById('recommend-view').style.display = view === 'recommend' ? '' : 'none';
+      document.getElementById('catalog-view').style.display = view === 'catalog' ? '' : 'none';
+
+      if (view === 'catalog' && !catalogLoaded) {
+        loadCatalog();
+      }
+    });
 
     recommend();
   </script>
