@@ -12,5 +12,6 @@ CREATE TABLE IF NOT EXISTS loan_products (
     purposes TEXT NOT NULL,
     collaterals TEXT NOT NULL,
     regions TEXT NOT NULL,
-    tags TEXT NOT NULL
+    tags TEXT NOT NULL,
+    available INTEGER NOT NULL DEFAULT 1
 );

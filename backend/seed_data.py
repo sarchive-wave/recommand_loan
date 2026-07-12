@@ -7,12 +7,14 @@ PRODUCTS_PATH = Path(__file__).resolve().parent.parent / "db" / "products.json"
 
 
 def seed():
+    conn = get_connection()
+    conn.execute("DROP TABLE IF EXISTS loan_products")
+    conn.commit()
+    conn.close()
     init_db()
+
     conn = get_connection()
     cur = conn.cursor()
-    cur.execute("SELECT COUNT(*) FROM loan_products")
-    if cur.fetchone()[0] > 0:
-        cur.execute("DELETE FROM loan_products")
 
     with open(PRODUCTS_PATH, "r", encoding="utf-8") as f:
         products = json.load(f)
@@ -22,8 +24,8 @@ def seed():
             """
             INSERT INTO loan_products
                 (name, description, rate_display, rate_min, limit_display, max_amount,
-                 url, jobs, credits, purposes, collaterals, regions, tags)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                 url, jobs, credits, purposes, collaterals, regions, tags, available)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 p["name"],
@@ -39,6 +41,7 @@ def seed():
                 json.dumps(p["collaterals"], ensure_ascii=False),
                 json.dumps(p["regions"], ensure_ascii=False),
                 json.dumps(p["tags"], ensure_ascii=False),
+                1 if p.get("available", True) else 0,
             ),
         )
 

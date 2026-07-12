@@ -12,7 +12,8 @@
     "purposes": ["생활자금"],
     "collaterals": ["없음"],
     "regions": ["전국"],
-    "tags": ["정부지원", "보증부"]
+    "tags": ["정부지원", "보증부"],
+    "available": true
   },
   {
     "name": "햇살론 일반보증",
@@ -27,7 +28,8 @@
     "purposes": ["생활자금"],
     "collaterals": ["없음"],
     "regions": ["전국"],
-    "tags": ["정책금융", "저금리"]
+    "tags": ["정책금융", "저금리"],
+    "available": true
   },
   {
     "name": "햇살론 특례보증",
@@ -42,7 +44,8 @@
     "purposes": ["생활자금", "사업자금"],
     "collaterals": ["없음"],
     "regions": ["전국"],
-    "tags": ["정책금융", "특례"]
+    "tags": ["정책금융", "특례"],
+    "available": true
   },
   {
     "name": "사업자햇살론",
@@ -57,7 +60,8 @@
     "purposes": ["사업자금"],
     "collaterals": ["없음"],
     "regions": ["전국"],
-    "tags": ["정부지원", "사업자"]
+    "tags": ["정부지원", "사업자"],
+    "available": true
   },
   {
     "name": "BIG3 등대론",
@@ -72,7 +76,40 @@
     "purposes": ["사업자금"],
     "collaterals": ["없음"],
     "regions": ["부산경남"],
-    "tags": ["지역특화", "저금리"]
+    "tags": ["지역특화", "저금리"],
+    "available": true
+  },
+  {
+    "name": "온라인햇살론",
+    "description": "저신용·저소득 직장인을 위한 정부지원대출 (온라인 신청)",
+    "rate_display": "판매중단",
+    "rate_min": 999.0,
+    "limit_display": "최대 2,000만 원",
+    "max_amount": 2000,
+    "url": "https://sbloan.ibksb.co.kr/ibk/loan/loan_01_01.jsp",
+    "jobs": ["직장인"],
+    "credits": ["저신용"],
+    "purposes": ["생활자금"],
+    "collaterals": ["없음"],
+    "regions": ["전국"],
+    "tags": ["정책금융", "판매중단"],
+    "available": false
+  },
+  {
+    "name": "최저신용자특례보증",
+    "description": "최저신용자 집중 지원 보증부 상품",
+    "rate_display": "판매중단",
+    "rate_min": 999.0,
+    "limit_display": "최대 1,000만 원",
+    "max_amount": 1000,
+    "url": "https://sbloan.ibksb.co.kr/ibk/loan/loan_02_04.jsp",
+    "jobs": ["직장인", "자영업자"],
+    "credits": ["저신용"],
+    "purposes": ["생활자금", "사업자금"],
+    "collaterals": ["없음"],
+    "regions": ["전국"],
+    "tags": ["정책금융", "판매중단"],
+    "available": false
   },
   {
     "name": "i-빅론U",
@@ -87,7 +124,8 @@
     "purposes": ["생활자금"],
     "collaterals": ["없음"],
     "regions": ["전국"],
-    "tags": ["신용대출", "직장인"]
+    "tags": ["신용대출", "직장인"],
+    "available": true
   },
   {
     "name": "i-빅론S",
@@ -102,7 +140,8 @@
     "purposes": ["생활자금"],
     "collaterals": ["없음"],
     "regions": ["전국"],
-    "tags": ["기존고객 우대"]
+    "tags": ["기존고객 우대"],
+    "available": true
   },
   {
     "name": "지역사랑 더드림론",
@@ -117,13 +156,46 @@
     "purposes": ["생활자금"],
     "collaterals": ["없음"],
     "regions": ["부산경남"],
-    "tags": ["지역특화", "직장인"]
+    "tags": ["지역특화", "직장인"],
+    "available": true
+  },
+  {
+    "name": "i-빅론U플러스",
+    "description": "우량고객 대상 직장인 신용대출",
+    "rate_display": "판매중단",
+    "rate_min": 999.0,
+    "limit_display": "최대 1억 원",
+    "max_amount": 10000,
+    "url": "https://sbloan.ibksb.co.kr/ibk/loan/loan_03_08.jsp",
+    "jobs": ["직장인"],
+    "credits": ["고신용"],
+    "purposes": ["생활자금"],
+    "collaterals": ["없음"],
+    "regions": ["전국"],
+    "tags": ["신용대출", "판매중단"],
+    "available": false
+  },
+  {
+    "name": "i-패스트론U",
+    "description": "직장인을 위한 IBK저축은행 소액 신용대출",
+    "rate_display": "판매중단",
+    "rate_min": 999.0,
+    "limit_display": "최대 300만 원",
+    "max_amount": 300,
+    "url": "https://sbloan.ibksb.co.kr/ibk/loan/loan_03_10.jsp",
+    "jobs": ["직장인"],
+    "credits": ["고신용", "중신용"],
+    "purposes": ["생활자금"],
+    "collaterals": ["없음"],
+    "regions": ["전국"],
+    "tags": ["소액금융", "판매중단"],
+    "available": false
   },
   {
     "name": "경락잔금대출",
     "description": "법원 경매 낙찰자를 위한 경락자금 지원 대출",
-    "rate_display": "연 6.78% ~ 10.00%",
-    "rate_min": 6.78,
+    "rate_display": "연 6.79% ~ 10.00%",
+    "rate_min": 6.79,
     "limit_display": "개인 최대 8억 / 법인 최대 120억",
     "max_amount": 80000,
     "url": "https://sbloan.ibksb.co.kr/ibk/loan/loan_04_05.jsp",
@@ -132,13 +204,14 @@
     "purposes": ["경매"],
     "collaterals": ["부동산"],
     "regions": ["전국"],
-    "tags": ["담보대출", "경락"]
+    "tags": ["담보대출", "경락"],
+    "available": true
   },
   {
     "name": "부동산 담보대출",
     "description": "보유 부동산을 담보로 필요자금 대출",
-    "rate_display": "연 6.78% ~ 19.99%",
-    "rate_min": 6.78,
+    "rate_display": "연 6.79% ~ 19.99%",
+    "rate_min": 6.79,
     "limit_display": "개인 최대 8억 / 법인 최대 120억",
     "max_amount": 80000,
     "url": "https://sbloan.ibksb.co.kr/ibk/loan/loan_04_06.jsp",
@@ -147,7 +220,24 @@
     "purposes": ["생활자금", "사업자금", "부동산"],
     "collaterals": ["부동산"],
     "regions": ["전국"],
-    "tags": ["담보대출"]
+    "tags": ["담보대출"],
+    "available": true
+  },
+  {
+    "name": "할인어음",
+    "description": "기업의 상거래에 수반하여 발행된 어음을 은행이 매입",
+    "rate_display": "연 4.50% ~ 11.00%",
+    "rate_min": 4.50,
+    "limit_display": "어음 발행금액 이내",
+    "max_amount": 999999,
+    "url": "https://sbloan.ibksb.co.kr/ibk/loan/loan_05_02.jsp",
+    "jobs": ["법인"],
+    "credits": ["고신용", "중신용"],
+    "purposes": ["사업자금"],
+    "collaterals": ["없음"],
+    "regions": ["전국"],
+    "tags": ["단기금융", "기업대출"],
+    "available": true
   },
   {
     "name": "예적금 담보대출",
@@ -162,7 +252,8 @@
     "purposes": ["생활자금"],
     "collaterals": ["예적금"],
     "regions": ["전국"],
-    "tags": ["최저금리", "담보대출"]
+    "tags": ["최저금리", "담보대출"],
+    "available": true
   },
   {
     "name": "사업자 아파트담보대출",
@@ -177,7 +268,8 @@
     "purposes": ["부동산", "사업자금"],
     "collaterals": ["부동산"],
     "regions": ["전국"],
-    "tags": ["사업자", "아파트담보"]
+    "tags": ["사업자", "아파트담보"],
+    "available": true
   },
   {
     "name": "소상공인 신용대출",
@@ -192,13 +284,14 @@
     "purposes": ["사업자금"],
     "collaterals": ["없음"],
     "regions": ["전국"],
-    "tags": ["소상공인"]
+    "tags": ["소상공인"],
+    "available": true
   },
   {
     "name": "소상공인 부동산담보대출",
     "description": "소상공인을 위한 부동산 담보대출",
-    "rate_display": "연 6.78% ~ 15.25%",
-    "rate_min": 6.78,
+    "rate_display": "연 6.79% ~ 15.26%",
+    "rate_min": 6.79,
     "limit_display": "최대 60억 원",
     "max_amount": 600000,
     "url": "https://sbloan.ibksb.co.kr/ibk/loan/loan_04_07.jsp",
@@ -207,6 +300,55 @@
     "purposes": ["사업자금", "부동산"],
     "collaterals": ["부동산"],
     "regions": ["전국"],
-    "tags": ["소상공인", "담보대출"]
+    "tags": ["소상공인", "담보대출"],
+    "available": true
+  },
+  {
+    "name": "의료사업자 담보대출",
+    "description": "의원·병원·약국·요양원 등 의료사업자 담보대출",
+    "rate_display": "연 6.79% ~ 12.81%",
+    "rate_min": 6.79,
+    "limit_display": "개인사업자 최대 60억 / 법인 최대 120억",
+    "max_amount": 600000,
+    "url": "https://sbloan.ibksb.co.kr/ibk/loan/loan_05_01.jsp",
+    "jobs": ["의료사업자"],
+    "credits": ["고신용", "중신용"],
+    "purposes": ["부동산", "사업자금"],
+    "collaterals": ["부동산"],
+    "regions": ["전국"],
+    "tags": ["의료사업자", "담보대출"],
+    "available": true
+  },
+  {
+    "name": "i-medi론(메디칼론)",
+    "description": "국민건강보험공단으로부터 수령할 건강보험급여 채권을 담보로 한 대출",
+    "rate_display": "연 7.51% ~ 13.44%",
+    "rate_min": 7.51,
+    "limit_display": "개인사업자 최대 60억 / 법인 최대 120억",
+    "max_amount": 600000,
+    "url": "https://sbloan.ibksb.co.kr/ibk/loan/loan_03_02.jsp",
+    "jobs": ["의료사업자"],
+    "credits": ["고신용", "중신용"],
+    "purposes": ["사업자금"],
+    "collaterals": ["없음"],
+    "regions": ["전국"],
+    "tags": ["의료사업자", "채권담보"],
+    "available": true
+  },
+  {
+    "name": "IBK실버사업자대출",
+    "description": "요양원, 재가노인복지시설 운영(예정) 개인사업자를 위한 대출",
+    "rate_display": "연 5.30% ~ 12.50%",
+    "rate_min": 5.30,
+    "limit_display": "개인사업자 최대 60억 원",
+    "max_amount": 600000,
+    "url": "https://sbloan.ibksb.co.kr/ibk/loan/loan_03_03.jsp",
+    "jobs": ["의료사업자"],
+    "credits": ["고신용", "중신용"],
+    "purposes": ["사업자금"],
+    "collaterals": ["부동산"],
+    "regions": ["전국"],
+    "tags": ["의료사업자", "실버산업"],
+    "available": true
   }
 ]

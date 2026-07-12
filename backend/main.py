@@ -41,6 +41,7 @@ def row_to_product(row: dict) -> dict:
         "collaterals": json.loads(row["collaterals"]),
         "regions": json.loads(row["regions"]),
         "tags": json.loads(row["tags"]),
+        "available": bool(row["available"]),
     }
 
 
@@ -69,6 +70,8 @@ def recommend(
 
     matched = []
     for p in products:
+        if not p["available"]:
+            continue
         if job not in p["jobs"]:
             continue
         if credit not in p["credits"]:
