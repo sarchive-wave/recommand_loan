@@ -58,8 +58,8 @@
             <i class="ti ti-briefcase" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>직업 유형
           </label>
           <div style="display:flex; flex-wrap:wrap; gap:8px;" id="job-group">
-            <span class="chip" data-val="전체" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">전체</span>
-            <span class="chip active" data-val="직장인" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">직장인</span>
+            <span class="chip active" data-val="전체" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">전체</span>
+            <span class="chip" data-val="직장인" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">직장인</span>
             <span class="chip" data-val="자영업자" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">자영업자 / 소상공인</span>
             <span class="chip" data-val="의료사업자" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">의료사업자</span>
             <span class="chip" data-val="법인" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">법인사업자</span>
@@ -72,9 +72,9 @@
             <i class="ti ti-star" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>신용 등급
           </label>
           <div style="display:flex; flex-wrap:wrap; gap:8px;" id="credit-group">
-            <span class="chip" data-val="전체" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">전체</span>
+            <span class="chip active" data-val="전체" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">전체</span>
             <span class="chip" data-val="고신용" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">고신용 (1~3등급)</span>
-            <span class="chip active" data-val="중신용" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">중신용 (4~6등급)</span>
+            <span class="chip" data-val="중신용" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">중신용 (4~6등급)</span>
             <span class="chip" data-val="저신용" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">저신용 (7등급 이하)</span>
           </div>
         </div>
@@ -85,8 +85,8 @@
             <i class="ti ti-target" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>대출 목적
           </label>
           <div style="display:flex; flex-wrap:wrap; gap:8px;" id="purpose-group">
-            <span class="chip" data-val="전체" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">전체</span>
-            <span class="chip active" data-val="생활자금" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">생활자금</span>
+            <span class="chip active" data-val="전체" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">전체</span>
+            <span class="chip" data-val="생활자금" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">생활자금</span>
             <span class="chip" data-val="사업자금" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">사업자금</span>
             <span class="chip" data-val="부동산" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">부동산 / 담보</span>
             <span class="chip" data-val="경매" style="padding:6px 14px; border-radius:20px; border:1px solid #CBD5E1; font-size:13px;">경락잔금</span>
@@ -99,7 +99,7 @@
             <label style="display:block; font-size:13px; font-weight:600; color:#475569; margin-bottom:6px;">
               <i class="ti ti-cash" style="font-size:15px; vertical-align:-2px; margin-right:4px;"></i>필요 금액 (만원)
             </label>
-            <input type="number" id="amount" value="1000" min="100" max="100000" step="100"
+            <input type="number" id="amount" placeholder="전체 (미입력 시 금액 무관)" min="100" max="9999999" step="100"
               style="width:100%; padding:8px 12px; border:1px solid #CBD5E1; border-radius:8px; font-size:14px; color:#1e293b; outline:none;"
               onfocus="this.style.borderColor='#3B82F6'" onblur="this.style.borderColor='#CBD5E1'" />
           </div>
@@ -227,7 +227,8 @@
       const el = document.getElementById('results');
       el.innerHTML = `<div style="text-align:center; padding:2rem; color:#94a3b8; font-size:14px;">추천 상품을 찾는 중...</div>`;
 
-      const params = new URLSearchParams({ job, credit, purpose, region, collateral, amount });
+      const params = new URLSearchParams({ job, credit, purpose, region, collateral });
+      if (amount) params.append('amount', amount);
 
       try {
         const res = await fetch(`/api/recommend?${params.toString()}`);
