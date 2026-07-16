@@ -6,9 +6,9 @@ if [ -f ../server.pid ] && kill -0 "$(cat ../server.pid)" 2>/dev/null; then
   exit 0
 fi
 
-nohup python -m uvicorn main:app --host 127.0.0.1 --port 8000 > ../server.log 2>&1 &
+nohup venv/bin/python -m uvicorn main:app --host 0.0.0.0 --port 8000 > ../server.log 2>&1 &
 echo $! > ../server.pid
 sleep 1
 echo "Server started (PID $(cat ../server.pid))."
-echo "Open http://127.0.0.1:8000"
+echo "Open http://localhost:8000"
 echo "Logs: server.log"
